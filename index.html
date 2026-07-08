@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Booking App</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Logo</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#" class="active">Services</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">About Us</a></li>
+        </ul>
+        <div class="user-actions">
+            <span class="username">Username</span>
+            <button class="logout-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="left-section">
+            
+            <div class="card card-cart">
+                <h2 class="card-title text-center">Added Items</h2>
+                
+                <div class="cart-container" id="cart-container">
+                    <div class="empty-state" id="empty-state">
+                        <svg class="info-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        <p class="empty-title">No Items Added</p>
+                        <p class="empty-subtitle">Add items to the cart from the services bar</p>
+                    </div>
+
+                    <table class="cart-table" id="cart-table" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Service Name</th>
+                                <th class="text-right">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-body">
+                            </tbody>
+                    </table>
+                </div>
+
+                <div class="total-row">
+                    <span class="total-label">Total Amount</span>
+                    <span class="total-price" id="total-price">₹ 0.00</span>
+                </div>
+            </div>
+
+            <div class="card card-booking">
+                <h2 class="card-title">Book Now</h2>
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="John Doe">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email ID</label>
+                            <input type="email" placeholder="mail@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="0000000000">
+                        </div>
+                    </div>
+                    <button type="submit" class="book-btn disabled" id="book-btn" disabled>Book now</button>
+                    <p class="warning-text" id="warning-text">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        Add the items to the cart to book
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="card card-browse">
+                <h2 class="card-title title-large">Browse Our Services</h2>
+                <p class="subtitle">Click on the add to cart button to add the services to your cart or press skip</p>
+
+                <div class="service-display">
+                    <div class="image-container">
+                        <img id="service-img" src="" alt="Service Image">
+                    </div>
+                    
+                    <div class="service-details">
+                        <h3 class="service-name" id="service-name">Service Name</h3>
+                        <span class="service-price-tag" id="service-price">₹0.00</span>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="action-btn btn-skip" id="skip-btn">
+                            Skip Item <span class="icon">⊖</span>
+                        </button>
+                        <button class="action-btn btn-add" id="add-btn">
+                            Add Item <span class="icon">⊕</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="browse-footer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    Add the items to the cart and book now
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./script.js"></script>
+</body>
+</html>
