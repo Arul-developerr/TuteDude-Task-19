@@ -8,91 +8,140 @@ const servicesData = [
 ];
 
 let cart = [];
-let currentServiceIndex = 0;
+let currentIndex = 0; 
 
-const serviceImg = document.getElementById('service-img');
-const serviceName = document.getElementById('service-name');
-const servicePrice = document.getElementById('service-price');
-const skipBtn = document.getElementById('skip-btn');
-const addBtn = document.getElementById('add-btn');
+let serviceImg = document.getElementById('service-img');
+let serviceName = document.getElementById('service-name');
+let servicePrice = document.getElementById('service-price');
+let skipBtn = document.getElementById('skip-btn');
+let addBtn = document.getElementById('add-btn');
 
-const emptyState = document.getElementById('empty-state');
-const cartTable = document.getElementById('cart-table');
-const cartBody = document.getElementById('cart-body');
-const totalPriceEl = document.getElementById('total-price');
+let emptyState = document.getElementById('empty-state');
+let cartTable = document.getElementById('cart-table');
+let cartBody = document.getElementById('cart-body');
+let totalPriceEl = document.getElementById('total-price');
 
-const bookBtn = document.getElementById('book-btn');
-const warningText = document.getElementById('warning-text');
-const bookingForm = document.getElementById('booking-form');
+let bookBtn = document.getElementById('book-btn');
+let warningText = document.getElementById('warning-text');
+let bookingForm = document.getElementById('booking-form');
 
 
-function renderCurrentService() {
-    const service = servicesData[currentServiceIndex];
-    serviceImg.src = service.image;
-    serviceName.textContent = service.name;
-    servicePrice.textContent = `₹${service.price.toFixed(2)}`;
+function saveToMemory() {
+    let textData = JSON.stringify(cart); 
+    localStorage.setItem('savedCart', textData);
 }
 
-function nextService() {
-    if (currentServiceIndex < servicesData.length - 1) {
-        currentServiceIndex++;
+function loadFromMemory() {
+    let textData = localStorage.getItem('savedCart');
+    
+    if (textData !== null) {
+        cart = JSON.parse(textData); 
     } else {
-        currentServiceIndex = 0; 
+        cart = [];
     }
-    renderCurrentService();
 }
 
-function updateCartUI() {
-    const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
-    totalPriceEl.textContent = `₹ ${totalAmount.toFixed(2)}`;
 
+function showPicture() {
+    let item = servicesData[currentIndex];
+    
+    serviceImg.src = item.image;
+    serviceName.innerText = item.name;
+    servicePrice.innerText = "₹" + item.price;
+}
+
+function goNext() {
+    if (currentIndex < servicesData.length - 1) {
+        currentIndex = currentIndex + 1;
+    } else {
+        currentIndex = 0;
+    }
+    showPicture();
+}
+
+
+function redrawCart() {
+    let total = 0;
+    
+    for (let i = 0; i < cart.length; i = i + 1) {
+        total = total + cart[i].price;
+    }
+    
+    totalPriceEl.innerText = "₹ " + total;
+    
     if (cart.length === 0) {
         emptyState.style.display = 'flex';
         cartTable.style.display = 'none';
-        
-        bookBtn.classList.add('disabled');
         bookBtn.disabled = true;
-        warningText.style.display = 'flex';
+        bookBtn.style.backgroundColor = '#c7d2fe'; 
+        warningText.style.display = 'block';
     } else {
         emptyState.style.display = 'none';
         cartTable.style.display = 'table';
-        
-        bookBtn.classList.remove('disabled');
         bookBtn.disabled = false;
+        bookBtn.style.backgroundColor = '#6366f1'; 
         warningText.style.display = 'none';
-
-        cartBody.innerHTML = '';
-        cart.forEach((item, index) => {
-            const row = document.createElement('tr');
+        
+        cartBody.innerHTML = ''; 
+        
+        for (let i = 0; i < cart.length; i = i + 1) {
+            let row = document.createElement('tr');
+            
             row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${item.name}</td>
-                <td class="text-right">₹${item.price.toFixed(2)}</td>
+                <td>${i + 1}</td>
+                <td>${cart[i].name}</td>
+                <td style="text-align: right;">₹${cart[i].price}</td>
+                <td><button onclick="removeItem(${i})" style="
+                color: red; 
+                cursor: pointer; 
+                border: none; 
+                background: none
+                padding: 15px 10px;
+                margin-left: 20px
+                ;">Remove</button></td>
             `;
+            
             cartBody.appendChild(row);
-        });
+        }
     }
 }
 
-addBtn.addEventListener('click', () => {
-    cart.push(servicesData[currentServiceIndex]);
-    updateCartUI();
-    nextService();
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    saveToMemory();
+    redrawCart();
+}
+
+
+addBtn.addEventListener('click', function() {
+    let item = servicesData[currentIndex];
+    cart.push(item); 
+    
+    saveToMemory(); 
+    redrawCart(); 
+    goNext(); 
 });
 
-skipBtn.addEventListener('click', () => {
-    nextService();
+
+skipBtn.addEventListener('click', function() {
+    goNext();
 });
 
-bookingForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+
+bookingForm.addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    
     if (cart.length > 0) {
-        alert('Booking successful! Amount: ₹' + cart.reduce((sum, item) => sum + item.price, 0));
+        alert("Success! You booked items.");
+        
         cart = [];
-        updateCartUI();
+        saveToMemory();
+        redrawCart();
         bookingForm.reset();
     }
 });
 
-renderCurrentService();
-updateCartUI();
+loadFromMemory(); 
+showPicture(); 
+redrawCart();
