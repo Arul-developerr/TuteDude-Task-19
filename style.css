@@ -16,7 +16,6 @@ body {
     align-items: center;
     padding: 1rem 2rem;
     background-color: white;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .logo {
@@ -38,11 +37,6 @@ body {
     font-weight: 500;
 }
 
-.nav-links a.active {
-    color: #1e293b;
-    border-bottom: 2px solid #1e293b;
-    padding-bottom: 4px;
-}
 
 .user-actions {
     display: flex;
@@ -56,22 +50,10 @@ body {
     color: #93c5fd;
     background-color: #eff6ff;
     padding: 6px 16px;
-    border-radius: 9999px;
-}
-
-.logout-btn {
-    background-color: #fef2f2;
-    color: #f87171;
-    border: none;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
+    border-radius: 12px;
 }
 
 .container {
-    max-width: 1152px;
     margin: 2rem auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -114,9 +96,6 @@ body {
     margin-top: 2rem;
 }
 
-.empty-icon { 
-    margin-bottom: 0.5rem; 
-}
 .empty-title { 
     font-weight: 600; 
     color: #475569; 
@@ -145,9 +124,6 @@ body {
     color: #475569;
 }
 
-.cart-table td:nth-child(2) { 
-    font-weight: 500; color: #1e293b; 
-}
 
 .total-row {
     display: flex;
@@ -184,9 +160,7 @@ input {
     outline: none;
 }
 
-input:focus { 
-    border-color: #818cf8; 
-}
+
 
 .book-btn {
     width: 100%;
@@ -200,21 +174,6 @@ input:focus {
     margin-top: 1rem;
 }
 
-.book-btn.disabled {
-    background-color: #c7d2fe;
-    cursor: not-allowed;
-}
-
-.warning-text {
-    font-size: 0.75rem;
-    color: #f87171;
-    text-align: center;
-    margin-top: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-}
 
 .title-large { 
     margin-bottom: 0.25rem; 
